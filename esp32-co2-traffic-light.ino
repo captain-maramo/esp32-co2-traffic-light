@@ -17,6 +17,8 @@
 
 CCS_811 ccs811Sensor;
 
+bool isFirstRun = true;
+
 void setup()
 {
   setPinModes();
@@ -27,6 +29,10 @@ void setup()
 
 void loop()
 {
+  if(isFirstRun){
+    initializeFirstRun();
+    isFirstRun = false;
+  }
   if (ccs811Sensor.dataAvailable())
   {
     int co2 = getCo2Value(ccs811Sensor);
@@ -60,6 +66,17 @@ void setLedByCo2(int co2){
     // Yellow
     setLedColor(255, 155, 0);
     printColorToSerial(255, 155, 0);
+  }
+}
+
+//20 min warum up phase for the sensor to give correct data
+void initializeFirstRun(){
+  for(int i = 1; i <= 120; i++){
+    setLedColor(0,0,255);
+    delay(5000);
+    setLedColor(0,125,255);
+    delay(5000);
+    Serial.println("Warmup round: " + String(i) + "/1200");
   }
 }
 

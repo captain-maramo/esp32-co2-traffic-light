@@ -23,5 +23,5 @@
 	- 18 -> resistor -> blue
 	- GND -> ground
 
-!(ESP32_RGB_CCS811.png)[wiring]
+![wiring](ESP32_RGB_CCS811.png)
 
